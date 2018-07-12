@@ -25,6 +25,7 @@ def parse_direct_mention(text):
 
 def parse_bot_commands(slack_events):
     for event in slack_events:
+        print event
         if event['type'] == 'message' and not 'subtype' in event:
             tagged_id, message = parse_direct_mention(event['text'])
             print "-----> Starterbot id: %s, User id: %s, channel: %s, message: %s" % (
