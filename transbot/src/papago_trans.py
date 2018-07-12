@@ -26,7 +26,8 @@ class PapagoTranslator:
         js = res.json()
         if not 'message' in js:
             raise Exception("Translation error code: %s, message: %s" % (js['errorCode'], js['errorMessage']))
-        return js['message']['result']['translatedText']
+        return {'text': js['message']['result']['translatedText'],
+                'lang': js['message']['result']['srcLangType']}
 
 
 
