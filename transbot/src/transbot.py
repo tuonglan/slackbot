@@ -1,10 +1,16 @@
-import os, time
+import os, time, re
 from threading import Thread
 from slackclient import SlackClient
 
 from papago_trans import PapagoTranslator
 
+TAG_PTT = re.compile("\<@(|[WU].+?)\>")
 RTM_READ_DELAY = 0.5
+
+
+def _detag_user(text):
+    
+
 
 class TranslatorBot:
     def __init__(self, token, papago_client_id, papago_client_secret, **kwargs):
@@ -86,7 +92,7 @@ class TranslatorBot:
 
     def _post_channel_message(self, trans_text, channel_id, event):
         display_name = self._users[event['user']]['display_name'] or self._users[event['user']]['name']
-        atts = [{'pretext': "*'%s'* (<#%s>): \"%s...\"" % (display_name, event['channel'],
+        atts = [{'pretext': "*`%s`* (<#%s>): \"%s...\"" % (display_name, event['channel'],
                                                            event['text'][:23]),
                 'text': trans_text['text'],
                 'color': "#7CD197"
