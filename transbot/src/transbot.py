@@ -1,4 +1,4 @@
-import os, time, re
+import os, time, re, websocket
 from threading import Thread
 from slackclient import SlackClient
 
@@ -9,7 +9,7 @@ RTM_READ_DELAY = 0.5
 
 
 def _detag_user(text):
-    
+    pass   
 
 
 class TranslatorBot:
@@ -135,8 +135,12 @@ class TranslatorBot:
             try:
                 events = self._client.rtm_read()
                 map(self._handle_event, events)
+            except websocket.WebSocketConnectionClosedException as e:
+                print "Translator Bot: Connection down, trying to connect again..."
+                self._client.rtm_connect()
             except Exception as e:
                 print "Translator Bot ERROR: %s" % e
+                time.sleep(3)
 
             time.sleep(self._rtm_read_delay)
 
