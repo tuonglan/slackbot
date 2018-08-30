@@ -139,8 +139,12 @@ class TranslatorBot:
                 print "Translator Bot: Connection down, trying to connect again..."
                 self._client.rtm_connect()
             except Exception as e:
-                print "Translator Bot ERROR: %s" % e
-                time.sleep(3)
+                if "Unable to send due to closed RTM websocket" in str(e):
+                    print "Translator Bot: Connection down, trying to connect again..."
+                    self._client.rtm_connect()
+                else:
+                    print "Translator Bot ERROR: %s" % e
+                    time.sleep(3)
 
             time.sleep(self._rtm_read_delay)
 
