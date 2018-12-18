@@ -13,7 +13,7 @@ if __name__ == '__main__':
                         help='Specify the username for slackbot to send private message to')
     parser.add_argument('--trans_delay', type=float, default=0.5, help='Delay of the bot between two scanning')
     parser.add_argument('--channel_pairs', type=str, default=None, 
-                        help='Specify pairs of channels for translation')
+                        help='Specify pairs of channels for translation: "(s,d),(s,d)"')
 
     args = parser.parse_args()
 
